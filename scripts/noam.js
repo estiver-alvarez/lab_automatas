@@ -1,12 +1,10 @@
 /*Está librería está siendo utilizada en la presentación de un trabajo académico de UdeA en 2022-1.
- *Hemos utilizado la libreria de Noam referenciada en la literatura.
+ *Hemos utilizado la libreria de Noam referenciada en la literatura de este laboratorio.
  *Aquí haremos una traducción en algunos casos de forma literal y en otros parafrásis con el fin de mostrar que entendemos el uso de la librería.
  *
  *La librería puede encontrarse en su forma original en el repositorio:
  * https://github.com/izuzak/noam  
  * https://github.com/izuzak/noam/blob/master/lib/browser/noam.js
- * Todos los derecho a Copyright 2012 Ivan Zuzak, Ivan Budiselic
- * Licenciamiento tipo Apache License, Version 2.0 (the "License");
  */
 
 
@@ -4543,4 +4541,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * * Todos los derecho a Copyright 2012 Ivan Zuzak, Ivan Budiselic
+ * Licenciamiento tipo Apache License, Version 2.0 (the "License");
  */
