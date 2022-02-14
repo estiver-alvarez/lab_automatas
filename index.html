@@ -1,0 +1,163 @@
+<html>
+  <h3>&nbsp TEORÍA DE LENGUAJES<br>&nbsp LABORATORIO 1<br>&nbsp AUTOMATAS FINITOS </h3>
+  <p> &nbsp&nbsp&nbsp&nbsp&nbsp  INTEGRANTES:<br> &nbsp&nbsp&nbsp&nbsp&nbsp Anderson Estiver Álvarez Giraldo<br> &nbsp&nbsp&nbsp&nbsp&nbsp  Carlos Alberto Peña Montenegro</p>  <br>
+<head>
+
+    <title>LAB AUTOMATAS UDEA 22-1</title>
+
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" />
+    <link rel="stylesheet" href="styles/fsm_simulator.css" />
+  </head>
+  <body>
+
+
+    <div class="content">
+      <div class="container controls">
+        <div class="row-fluid">
+          <div class="span6 column">
+            <h3> &#x00bb; Instrucciones de uso / Manual de usuario </h3>
+            <ul class="nav nav-tabs">              
+              <li id="fsminput"><a href="#tab2" data-toggle="tab">Ingresar el automata</a></li>
+            </ul>
+
+            <div class="tab-content">
+              
+              <div class="tab-pane" id="tab2">
+                <div class="instructions">
+                  <p>
+                    En esta sección dejamos un espacio en la caja de texto para ingresar un automata finito determinístico o no determinístico. 
+                  </p> 
+                
+                  <p>
+                    <strong>1. </strong> Por favor ingrese un Automata Finito válido en la caja de texto. 
+                    <p>
+                      Para empezar vamos a listar los estados, luego listamos el estado inicial, luego los estados de aceptación, luego los caracteres de entrada y finalmente las transiciones dadas.<br>
+                      El formato de las transiciones es el siguiente: <code>stateA:symbol>stateB,stateC</code>. <br><br>
+                    </p>
+                    <strong>2. </strong> Una vez haya ingresado el automata de forma correcta puede dar clic en <strong>Generar automata gráfico</strong>. <br>
+                    <strong>  * </strong> al dar clic en <strong>Generar automata gráfico</strong> el algoritmo tambien simplifca el automata. <br><br>
+                    
+                  </p> 
+
+                  <p>
+                    Podemos dar click en ver un ejemplo para generar un ejercicio aleatorio y así se podrá comprender mejor cuál es la manera correcta de dar uso a la nomenclatura que aquí se utiliza para que podamos cumplir el ohjetivo de este laboratorio. 
+                   </p> 
+
+
+                </div>
+                <p>
+                  <button id="generateDFA" class="btn">Ver ejemplo de AFD</button>
+                  <button id="generateNFA" class="btn">Ver ejemplo de AFND</button>
+                  
+                </p>
+                <p>
+                  <textarea id="fsm" class="input-block-level" type="text" placeholder="or write your own" spellcheck="false"></textarea>
+                </p>
+              </div>
+            </div>
+
+            <p id="fsmError" class="text-error">
+            </p>
+
+            <p>
+              <button id="createAutomaton" class="btn" disabled>Generar automata gráfico</button>
+            </p>
+
+          </div>
+  
+
+          <div class="span6 column">
+            <h3> &#x00bb; Revisión de una hilera en el automata </h3>
+
+            <div class="instructions">
+              <p>
+                Por favor ingrese la secuencia de simbolos en el campo de texto. 
+              </p>
+              <p>
+                Clic en <strong>Empezar a recorrer la hilera</strong> para ubicarse en el primer símbolo de la hilera <br> <br>
+                Clic en <strong>Símbolo siguiente</strong> para avanzar al siguiente símbolo de la hilera. <br> <br>
+                Clic en <strong>Símbolo anterior</strong> para retroceder un símbolo en la hilera. <br> <br>                
+                Clic en <strong>Recorrer todo</strong> para recorrer toda la hilera y ubicarse al final. <br>
+                
+                *En este caso el estado de aceptación estará determinado gráficamente si se encuentra o no en el diagrama con doble círculo. Si está en el diagrama de doble círculo es acpetado, de lo contrario es un estado de rechazo.<br> <br>
+                Clic en <strong>Ubicar en el inicio</strong> para ubicarse en el primer símbolo de la hilera. <br>
+              </p>
+              <p>
+                Una vez iniciado el recorrido de la hilera, se resaltara en color <strong>Rosado</strong>, el simbolo recorrido en la hilera. <br> <br> 
+                Si deseamos ver un ejemplo válido damos clic en generar ejemplo de hilera, así tenedremos ejemplos de hileras aceptables y no aceptables.
+              </p>
+            </div>
+
+            <p>
+              <button id="generateRandomString" class="btn" disabled> Ej aleatorio de hilera </button>
+              <button id="generateRandomAcceptableString" class="btn" disabled> Ej de hilera aceptable </button>
+              <button id="generateRandomUnacceptableString" class="btn" disabled> Ej de hillera NO aceptable </button>
+            </p>
+
+            <p>
+              <div class="control-group">
+                <input id="inputString" type="text" class="input-block-level" placeholder="Espacio para escribir o modificar hilera y verificar el automata..." disabled spellcheck="false">
+              </div>
+            </p>
+
+            <p>
+              <button id="startStop" class="btn" disabled>
+                Empezar a recorrer la hilera
+              </button>
+              
+              <button id="inputPrevious" class="btn" disabled>
+                Símbolo anterior
+              </button>
+              <button id="inputNext" class="btn" disabled>
+                Símbolo siguiente
+              </button>
+              <button id="inputLast" class="btn" disabled>
+                Recorrer todo
+              </button>
+              <button id="inputFirst" class="btn" disabled>
+                Volver al primer símbolo
+              </button>
+            </p>
+
+            <p id="inputError" class="text-error">
+            </p>
+
+          </div>
+          <div class="container graph">
+            <h3> &#x00bb; Gráfica del diagrama de transición </h3>
+    
+            <p>
+              A continuación presentamos el diagrama de transición del automata, este diagrama ya está simplificado. Según lo visto en clases, la nomenclatura para un estado de aceptación es un doble círculo así que eso nos permitirá conocer si la hilera se acepta o no.<br><br>
+              Cuando estemos verificando la hilera podemos seguir el estado en el que se encuentra con este color: <span class="currentState">&nbsp;&nbsp;&nbsp;</span>.<br><br>
+              
+            </p>
+    
+            <div id="automatonGraph"> </div>
+          </div>
+      
+
+
+        </div>
+
+        <hr />
+      </div>
+
+
+      
+
+
+      
+
+
+    </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
+    <script src="scripts/viz.js"></script>
+    <script src="scripts/noam.js"></script>
+    <script src="scripts/backendautomatas.js"></script>
+ 
+  </body>
+</html>

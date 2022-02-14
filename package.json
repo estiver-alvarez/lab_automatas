@@ -1,0 +1,24 @@
+{
+  "name": "fsm_simulator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/estiver-alvarez/lab_automata.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/estiver-alvarez/lab_automata/issues"
+  },
+  "homepage": "https://github.com/estiver-alvarez/lab_automata#readme",
+  "dependencies": {
+    "browserify": "^17.0.0",
+    "cli-table": "^0.3.11"
+  }
+}
