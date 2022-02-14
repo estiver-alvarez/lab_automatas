@@ -219,12 +219,8 @@ var currentStates = null;
 var inactiveStates = null;
 var previousStates = null;
 var nextStates = null;
-var inputIsRegex = true;
+var inputIsRegex = false;
 
-
-$("#fsminput").click(function(){
-  inputIsRegex = false;
-});
 
 
 
@@ -238,10 +234,12 @@ function generateAutomaton(fsmType) {
 
 $("#generateDFA").click(function() {
   generateAutomaton(noam.fsm.dfaType);
+  $("#createAutomaton").attr("disabled", false);
 });
 
 $("#generateNFA").click(function() {
   generateAutomaton(noam.fsm.nfaType);
+  $("#createAutomaton").attr("disabled", false);
 });
 
 
