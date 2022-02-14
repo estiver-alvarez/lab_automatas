@@ -43,7 +43,7 @@ function getElementsOfStates(states) {
   return retVal;
 }
 
-function reorderCirclesInAcceptingStates(states) {
+function reordernarEstadosAceptacion(states) {
   var stateElements = getElementsOfStates(states);
 
   for (var i=0; i<stateElements.length; i++) {
@@ -53,11 +53,18 @@ function reorderCirclesInAcceptingStates(states) {
   }
 }
 
-function drawGraph() {
+function dibujarGrafo() {
+
+  // se obtiene la representacion del automata en formato plano mediante la api
   var dotString = noam.fsm.printDotFormat(automaton);
+
+  //se obtiene la imagen del automata en formato svg
   var gvizXml = Viz(dotString, "svg");
+
+  // se imprime la imagen
   $("#automatonGraph").html(gvizXml);
-  reorderCirclesInAcceptingStates(automaton.acceptingStates);
+  reordernarEstadosAceptacion(automaton.acceptingStates);
+  //luego de obtener los estados de aceptacion se redimencionan
   $("#automatonGraph svg").width($("#automatonGraph").width());
 }
 
@@ -203,7 +210,7 @@ $("#inputLast").click(function(){
   }
 });
 
-function initialize() {
+function inicializar() {
   inputStringLeft = null;
   currentStates = null;
   inactiveStates = null;
@@ -225,19 +232,23 @@ var inputIsRegex = false;
 
 
 function generateAutomaton(fsmType) {
+  //se le pide a la api que genere aleatoriamente el formato de un automata con 3 simbolos de vocabulario
+  // y hasta 4 estados y 3 estados de aceptacion respectivamente
   automaton = noam.fsm.createRandomFsm(fsmType, 4, 3, 3);
   $("#fsm").val(noam.fsm.serializeFsmToString(automaton));
   $("#fsm").scrollTop(0);
   $("#fsm").focus();
-  onRegexOrAutomatonChange();
+  onAutomatonChange();
 }
 
 $("#generateDFA").click(function() {
+  //se genera aleatoriamente un automa deterministico
   generateAutomaton(noam.fsm.dfaType);
   $("#createAutomaton").attr("disabled", false);
 });
 
 $("#generateNFA").click(function() {
+  //se genera aleatoriamente un automa no deterministico
   generateAutomaton(noam.fsm.nfaType);
   $("#createAutomaton").attr("disabled", false);
 });
@@ -245,12 +256,25 @@ $("#generateNFA").click(function() {
 
 
 $("#createAutomaton").click(function() {
- 
+  // se le pasa al api en formato plano un automata
+
   automaton = noam.fsm.parseFsmFromString($("#fsm").val());
+  type = noam.fsm.determineType(automaton);
+
+  if ( type == "NFA"){
+
+    // si el automata ingresado es no deterministico entonces se convierte a deterministico
+    automaton = noam.fsm.convertNfaToDfa(automaton);
+
+  }
+
+  // se minimiza el automata
+  automaton = noam.fsm.minimize(automaton);
   
 
-  initialize();
-  drawGraph();
+
+  inicializar();
+  dibujarGrafo();
   resetAutomaton();
 
   $("#generateRandomString").attr("disabled", false);
@@ -260,10 +284,11 @@ $("#createAutomaton").click(function() {
 });
 
 
-$("#fsm").change(onRegexOrAutomatonChange);
-$("#fsm").keyup(onRegexOrAutomatonChange);
+$("#fsm").change(onAutomatonChange);
+$("#fsm").keyup(onAutomatonChange);
 
-function onRegexOrAutomatonChange() {
+function onAutomatonChange() {
+  //metodo on change que valida que el formato del automata este correcto
   $("#automatonGraph").html("");
   $("#inputString").html("<br>");
 
@@ -283,14 +308,11 @@ function onRegexOrAutomatonChange() {
   $("#startStop").text("Empezar a recorrer la hilera");
   $("#inputError").hide();
 
-  if (inputIsRegex) {
-    validateRegex();
-  } else {
-    validateFsm();
-  }
+
+    validarFsm();
 }
 
-function validateFsm() {
+function validarFsm() {
   var fsm = $("#fsm").val();
 
   if (fsm.length === 0) {
@@ -306,7 +328,7 @@ function validateFsm() {
     } catch (e) {
       $("#fsm").parent().removeClass("success");
       $("#fsm").parent().addClass("error");
-      $("#fsmError").text("Error: " + e.message);
+      $("#fsmError").text("Error " + e.message);
       $("#fsmError").show();
     }
   }
