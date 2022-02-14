@@ -1,12 +1,14 @@
 <html>
-  <h3>&nbsp TEORÍA DE LENGUAJES<br>&nbsp LABORATORIO 1<br>&nbsp AUTOMATAS FINITOS comit ejemplo </h3>
+
+
+<h3>&nbsp TEORÍA DE LENGUAJES<br>&nbsp LABORATORIO 1<br>&nbsp AUTOMATAS FINITOS comit ejemplo </h3>
   <p> &nbsp&nbsp&nbsp&nbsp&nbsp  INTEGRANTES:<br> &nbsp&nbsp&nbsp&nbsp&nbsp Anderson Estiver Álvarez Giraldo<br> &nbsp&nbsp&nbsp&nbsp&nbsp  Carlos Alberto Peña Montenegro</p>  <br>
 <head>
 
     <title>LAB AUTOMATAS UDEA 22-1</title>
 
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" />
-    <link rel="stylesheet" href="styles/fsm_simulator.css" />
+    <link rel="stylesheet" href="styles/estilos.css"/>
   </head>
   <body>
 
@@ -82,12 +84,36 @@
   
               <p>
                 Clic en <strong>Empezar a recorrer la hilera</strong> para ubicarse en el primer símbolo de la hilera <br> <br>
+                <button id="startStop" class="btn" disabled>
+                  Empezar a recorrer la hilera
+                </button>
+                <br><br>
+
                 Clic en <strong>Símbolo siguiente</strong> para avanzar al siguiente símbolo de la hilera. <br> <br>
-                Clic en <strong>Símbolo anterior</strong> para retroceder un símbolo en la hilera. <br> <br>                
+                <button id="inputNext" class="btn" disabled>
+                  Símbolo siguiente
+                </button>
+                <br><br>
+
+                Clic en <strong>Símbolo anterior</strong> para retroceder un símbolo en la hilera. <br> <br>  
+                 <button id="inputPrevious" class="btn" disabled>
+                  Símbolo anterior
+                </button>
+                <br><br>
+
                 Clic en <strong>Recorrer todo</strong> para recorrer toda la hilera y ubicarse al final. <br>
+                *En este caso el estado de aceptación estará determinado gráficamente si se encuentra o no en el diagrama con doble círculo. Si está en el diagrama de doble círculo es acpetado, de lo contrario es un estado de rechazo.<br>
+                <button id="inputLast" class="btn" disabled>
+                  Recorrer todo
+                </button>
+                <br><br>
                 
-                *En este caso el estado de aceptación estará determinado gráficamente si se encuentra o no en el diagrama con doble círculo. Si está en el diagrama de doble círculo es acpetado, de lo contrario es un estado de rechazo.<br> <br>
-                Clic en <strong>Ubicar en el inicio</strong> para ubicarse en el primer símbolo de la hilera. <br>
+                
+                Clic en <strong>Volver al primer símbolo</strong> para ubicarse en el primer símbolo de la hilera. <br>
+                <button id="inputFirst" class="btn" disabled>
+                  Volver al primer símbolo
+                </button>
+                <br><br>
               </p>
               <p>
                 Una vez iniciado el recorrido de la hilera, se resaltara en color <strong>Rosado</strong>, el simbolo recorrido en la hilera. <br> <br> 
@@ -96,30 +122,13 @@
             </div>
 
             <p>
-              <button id="generateRandomString" class="btn" disabled> Ej aleatorio de hilera </button>
-              <button id="generateRandomAcceptableString" class="btn" disabled> Ej de hilera aceptable </button>
-              <button id="generateRandomUnacceptableString" class="btn" disabled> Ej de hillera NO aceptable </button>
-            </p>
-
-
-            <p>
-              <button id="startStop" class="btn" disabled>
-                Empezar a recorrer la hilera
-              </button>
               
-              <button id="inputPrevious" class="btn" disabled>
-                Símbolo anterior
-              </button>
-              <button id="inputNext" class="btn" disabled>
-                Símbolo siguiente
-              </button>
-              <button id="inputLast" class="btn" disabled>
-                Recorrer todo
-              </button>
-              <button id="inputFirst" class="btn" disabled>
-                Volver al primer símbolo
-              </button>
+              <button id="generateRandomAcceptableString" class="btn" disabled> Ej de hilera aceptable </button><br> 
+              <button id="generateRandomUnacceptableString" class="btn" disabled> Ej de hillera NO aceptable </button><br> <br> 
+              <button id="generateRandomString" class="btn" disabled> Ej aleatorio de hilera </button>
             </p>
+
+
 
             <p id="inputError" class="text-error">
             </p>
@@ -144,16 +153,10 @@
         <hr />
       </div>
 
-
-      
-
-
-      
+       
 
 
     </div>
-
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js"></script>
