@@ -221,21 +221,12 @@ var previousStates = null;
 var nextStates = null;
 var inputIsRegex = true;
 
-$("#regexinput").click(function(){
-  inputIsRegex = true;
-});
 
 $("#fsminput").click(function(){
   inputIsRegex = false;
 });
 
-$("#generateRegex").click(function() {
-  regex = noam.re.string.random(5, "abcd", {});
-  regex = noam.re.string.simplify(regex);
-  $("#regex").val(regex);
-  $("#regex").focus();
-  onRegexOrAutomatonChange();
-});
+
 
 function generateAutomaton(fsmType) {
   automaton = noam.fsm.createRandomFsm(fsmType, 4, 3, 3);
@@ -253,29 +244,12 @@ $("#generateNFA").click(function() {
   generateAutomaton(noam.fsm.nfaType);
 });
 
-$("#generateENFA").click(function() {
-  generateAutomaton(noam.fsm.enfaType);
-});
+
 
 $("#createAutomaton").click(function() {
-  if (inputIsRegex) {
-    regex = $("#regex").val();
-    automatonType = $("#automatonType").val();
-    automaton = noam.re.string.toAutomaton(regex);
-
-    if (automatonType === noam.fsm.nfaType) {
-      automaton = noam.fsm.convertEnfaToNfa(automaton);
-    }
-
-    if (automatonType === noam.fsm.dfaType) {
-      automaton = noam.fsm.convertEnfaToNfa(automaton);
-      automaton = noam.fsm.convertNfaToDfa(automaton);
-      automaton = noam.fsm.minimize(automaton);
-      automaton = noam.fsm.convertStatesToNumbers(automaton);
-    }
-  } else {
-    automaton = noam.fsm.parseFsmFromString($("#fsm").val());
-  }
+ 
+  automaton = noam.fsm.parseFsmFromString($("#fsm").val());
+  
 
   initialize();
   drawGraph();
@@ -287,8 +261,7 @@ $("#createAutomaton").click(function() {
   $("#inputString").attr("disabled", false);
 });
 
-$("#regex").change(onRegexOrAutomatonChange);
-$("#regex").keyup(onRegexOrAutomatonChange);
+
 $("#fsm").change(onRegexOrAutomatonChange);
 $("#fsm").keyup(onRegexOrAutomatonChange);
 
@@ -341,24 +314,3 @@ function validateFsm() {
   }
 }
 
-function validateRegex() {
-  var regex = $("#regex").val();
-
-  if (regex.length === 0) {
-    $("#regex").parent().removeClass("success error");
-    $("#fsmError").hide();
-  } else {
-    try {
-      noam.re.string.toTree(regex);
-      $("#regex").parent().removeClass("error");
-      $("#regex").parent().addClass("success");
-      $("#createAutomaton").attr("disabled", false);
-      $("#fsmError").hide();
-    } catch (e) {
-      $("#regex").parent().removeClass("success");
-      $("#regex").parent().addClass("error");
-      $("#fsmError").text("Error: " + e.message);
-      $("#fsmError").show();
-    }
-  }
-}
