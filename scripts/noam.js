@@ -927,7 +927,7 @@
   // Returns the added state object.
   noam.fsm.addState = function(fsm, stateObj) {
     return noam.fsm._addStateOrSymbol(fsm.states, stateObj,
-        "No state object specified", "State already exists");
+        "No state object specified", "El estado ya existe");
   };
 
   // Adds symObj as an alphabet symbol to the fsm.
@@ -946,7 +946,7 @@
   // accepting.
   noam.fsm.addAcceptingState = function(fsm, stateObj) {
     if (!noam.util.contains(fsm.states, stateObj)) {
-      throw new Error("The specified object is not a state of the FSM");
+      throw new Error("El objeto especificado no se identifica como estado válido para el automata.");
     }
     noam.fsm._addStateOrSymbol(fsm.acceptingStates, stateObj, "",
         "The specified state is already accepting");
@@ -956,7 +956,7 @@
   // Throws an Error if stateObj is not a state of the fsm.
   noam.fsm.setInitialState = function(fsm, stateObj) {
     if (!noam.util.contains(fsm.states, stateObj)) {
-      throw new Error("The specified object is not a state of the FSM");
+      throw new Error("Existe un error de estado que hace que no sea válido este automata");
     }
     fsm.initialState = stateObj;
   };
@@ -968,7 +968,7 @@
     }
     if (!noam.util.contains(fsm.states, fromState) ||
         !noam.util.containsAll(fsm.states, toStates)) {
-      throw new Error("One of the specified objects is not a state of the FSM");
+      throw new Error("Alguno de los objetos ingresados no es un estado válido en este automata");
     }
 
     var i;
@@ -996,7 +996,7 @@
   // specify an epsilon transition. For that, use addEpsilonTransition instead.
   noam.fsm.addTransition = function(fsm, fromState, toStates, transitionSymbol) {
     if (!noam.util.contains(fsm.alphabet, transitionSymbol)) {
-      throw new Error("The specified object is not an alphabet symbol of the FSM");
+      throw new Error("El objeto especificado no es un símbolo reconocido como símbolo de entrada o alfabeto, no está registrado en alphabet");
     }
     noam.fsm._addTransition(fsm, fromState, toStates, transitionSymbol);
   };
@@ -1416,8 +1416,8 @@
         }
       } else {
         if (parseState == null) {
-          throw new Error('Line ' + (i+1).toString() + ': no #section declared. \
-                          Add one section: states, initial, accepting, \
+          throw new Error('Line ' + (i+1).toString() + ': No existe una sección declarada con #sección. \
+                          Agregue una seección: states, initial, accepting, \
                           alphabet, transitions.');
         } else if (parseState === 'states') {
           var st = line.split(";");
@@ -1449,8 +1449,8 @@
 
     for (var k in parseCounts) {
       if (parseCounts[k] !== 1) {
-        throw new Error('Specification missing #' + parseCounts[k] +
-          ' section.');
+        throw new Error('Especificación imprecisa #' + parseCounts[k] +
+          ' secciones.');
       }
     }
 

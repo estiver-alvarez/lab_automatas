@@ -148,7 +148,7 @@ function onInputStringChange() {
     $("#inputString").parent().removeClass("success");
     $("#inputString").parent().addClass("error");
     $("#inputError").show();
-    $("#inputError").text("Error: input character at position " + i + " is not in FSM alphabet.");
+    $("#inputError").text("Error: El símbolo ingresado en la hilera en la posición " + i + " no se encuentra en el alphabet del automata.");
   }
 }
 
